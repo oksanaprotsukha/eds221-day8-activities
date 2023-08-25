@@ -89,8 +89,11 @@ space_launches_dataset_clean <- space_launches_dataset %>%
 ```{r}
 library(ggforce)
 library(emojifont)
+library(gridExtra)
+library(ggplot2)
+library(egg)
 
-ggplot(data = space_launches_dataset_clean, aes(x = launch_year, y = count_launches_by_agency, fill = agency_type)) +
+my_beautifully_ugly_graph <- ggplot(data = space_launches_dataset_clean, aes(x = launch_year, y = count_launches_by_agency, fill = agency_type)) +
   geom_col(
     aes(group = agency_type),
     position = "dodge"
@@ -120,15 +123,15 @@ ggplot(data = space_launches_dataset_clean, aes(x = launch_year, y = count_launc
                     show_guide = FALSE)+
   # add a marker line to define a year when the 1st rocket startup was launched
   annotate("text",
-           x = 2001,
+           x = 2000.5,
            y = 120,
            angle = 45,
            label = emoji('rocket'), cex=25, col='steelblue', family='EmojiOne') +
   annotate("text",
-           x = 2004,
-           y = 60,
+           x = 2003.5,
+           y = 63,
            angle = 90,
-           size = 4,
+           size = 5,
            label = "!Falcon1!", col='red')+
   geom_vline(xintercept = 2006,  # Update this to the appropriate x-coordinate
              linetype = "longdash",
@@ -142,8 +145,18 @@ ggplot(data = space_launches_dataset_clean, aes(x = launch_year, y = count_launc
         axis.text.x = element_text(color = "navy"),
         axis.text.y = element_text(color = "navy"))
 
+#print(my_beautifully_ugly_graph)
+# save the graph as an image preserving the original dimensions
 
-print(ggplot)
+#to view the plot
+gridExtra::grid.arrange(egg::set_panel_size(p = my_beautifully_ugly_graph, width=unit(8, "cm"), height=unit(8, "cm")))
+
+#to save the plot
+#ggsave(filename = "myplot.pdf", plot = egg::set_panel_size(p=p, width=unit(8, "cm"), height=unit(8, "cm")))
+
+#ggsave(here::here("figs", "my_beautifully_ugly_graph.png", plot = egg::set_panel_size(p=my_beautifully_ugly_graph, width=unit(8, "cm"), height=unit(8, "cm"))))
+
+ggsave(filename = "my_beautifully_ugly_graph.png", plot = egg::set_panel_size(p=my_beautifully_ugly_graph, width=unit(8, "cm"), height=unit(8, "cm")))
 ```
 
 ## Task 2: Wrangling practice with the SF Greenhouse Gas data
