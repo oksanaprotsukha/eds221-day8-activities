@@ -123,10 +123,10 @@ my_beautifully_ugly_graph <- ggplot(data = space_launches_dataset_clean, aes(x =
                     show_guide = FALSE)+
   # add a marker line to define a year when the 1st rocket startup was launched
   annotate("text",
-           x = 2000.5,
-           y = 120,
+           x = 2002,
+           y = 110,
            angle = 45,
-           label = emoji('rocket'), cex=25, col='steelblue', family='EmojiOne') +
+           label = emoji('rocket'), cex=16, col='steelblue', family='EmojiOne') +
   annotate("text",
            x = 2003.5,
            y = 63,
@@ -151,12 +151,7 @@ my_beautifully_ugly_graph <- ggplot(data = space_launches_dataset_clean, aes(x =
 #to view the plot
 gridExtra::grid.arrange(egg::set_panel_size(p = my_beautifully_ugly_graph, width=unit(8, "cm"), height=unit(8, "cm")))
 
-#to save the plot
-#ggsave(filename = "myplot.pdf", plot = egg::set_panel_size(p=p, width=unit(8, "cm"), height=unit(8, "cm")))
-
-#ggsave(here::here("figs", "my_beautifully_ugly_graph.png", plot = egg::set_panel_size(p=my_beautifully_ugly_graph, width=unit(8, "cm"), height=unit(8, "cm"))))
-
-ggsave(filename = "my_beautifully_ugly_graph.png", plot = egg::set_panel_size(p=my_beautifully_ugly_graph, width=unit(8, "cm"), height=unit(8, "cm")))
+ggsave(here::here("figs", filename = "my_beautifully_ugly_graph.png"), plot = egg::set_panel_size(p=my_beautifully_ugly_graph, width=unit(8, "cm"), height=unit(8, "cm")))
 ```
 
 ## Task 2: Wrangling practice with the SF Greenhouse Gas data
@@ -199,9 +194,9 @@ emissions_mtCO2e_2005 <- San_Francisco_Communitywide_Greenhouse_Gas_Inventory  %
 
 ## Task 3: Do your data viz best
 
-Create a finalized graph (as perfect as you can make it) using the San Francisco GHG emissions dataset. **You** get to choose what you want to visualize. You can pick which variables & observations you\'re interested in. You may want to do some wrangling / summarizing first.
+Create a finalized graph (as perfect as you can make it) using the San Francisco GHG emissions dataset. **You** get to choose what you want to visualize. You can pick which variables & observations you're interested in. You may want to do some wrangling / summarizing first.
 
-Once you\'ve decided on what to plot, create the best graph that you can to communicate what\'s going on with the data.
+Once you've decided on what to plot, create the best graph that you can to communicate what's going on with the data.
 
 ```{r}
 # TEST: expected emissions for Transportation sector for the period "2010-2019"
@@ -290,4 +285,15 @@ ggplot(data_plot) +
     vjust = -0.5, size = 2
   ) + 
   theme_bw()
+```
+
+```{r}
+library(palmerpenguins)
+library(tidyverse)
+library(emojifont)
+penguins %>% 
+  filter(species = "Gentoo") %>% 
+  ggplot(aes(x = body_mass_g, 
+             y = flipper_length_mm))+
+  geom_point()
 ```
